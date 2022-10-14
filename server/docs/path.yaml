@@ -1,0 +1,9 @@
+# Wallet
+/api/wallet/mnemonic:
+  $ref: './wallet/wallet.mnemonic.yaml'
+/api/wallet/address/{index}:
+  $ref: './wallet/wallet.address.yaml'
+/api/wallet/balance:
+  $ref: './wallet/wallet.balance.yaml'
+/api/wallet/transfer:
+  $ref: './wallet/wallet.transfer.yaml'
