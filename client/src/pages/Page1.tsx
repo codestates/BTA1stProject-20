@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 
 const Page1 = () => {
