@@ -8,11 +8,10 @@ import type {BoxProps} from '@mui/material';
 
 export interface CopiableAddressProps {
     address: string;
-    onCopyText?: (() => void) | null;
 }
 
 export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
-    const {address, onCopyText} = props;
+    const {address} = props;
     const shortenedAddress = useMemo(() => {
         const addr = /0x/.test(address) ? address : `0x${address}`;
 
@@ -39,16 +38,10 @@ export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
             }}
             onClick={handleCopyButtonClick}
         >
-            <Box component="span">
-                {shortenedAddress}
-            </Box>
+            <Box component="span">{shortenedAddress}</Box>
             <Tooltip title="복사하기">
                 <Box component="span">
-                    <ContentCopyIcon
-                        sx={{
-                            fontSize: '0.8rem',
-                        }}
-                    />
+                    <ContentCopyIcon sx={{fontSize: '0.8rem'}} />
                 </Box>
             </Tooltip>
 

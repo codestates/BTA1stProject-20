@@ -1,6 +1,5 @@
 import {CopiableAddress} from './CopiableAddress';
 import {DefaultLayout} from "../../layouts";
-import {copyToclipboard} from "../../utils";
 
 import type {ComponentMeta, ComponentStory} from "@storybook/react";
 
@@ -22,10 +21,5 @@ const Template: ComponentStory<typeof CopiableAddress> = (args) => {
 export const CopiableAddressStory = Template.bind({});
 CopiableAddressStory.args = {
     address: ADDRESS,
-    onCopyText: () => {
-        copyToclipboard(ADDRESS).then(() => {
-            alert('copied');
-        })
-    },
 }
-CopiableAddressStory.storyName='비밀번호 입력';
+CopiableAddressStory.storyName='복사 가능한 주소 컴포넌트';
