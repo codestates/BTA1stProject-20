@@ -49,8 +49,8 @@ export const ActionCard: FC<ActionCardProps> = (props) => {
             <Box mt={1}>
                 <Typography variant="body2">{labels.SECONDARY}</Typography>
             </Box>
-            <Box mt={1}>
-                <FullButton>{labels.BUTTON_LABEL}</FullButton>
+            <Box mt={1} width="80%">
+                <FullButton fullWidth>{labels.BUTTON_LABEL}</FullButton>
             </Box>
         </Box>
     );
