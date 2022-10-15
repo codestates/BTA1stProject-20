@@ -19,14 +19,12 @@ const Template: ComponentStory<typeof PasswordInput> = (args) => {
 export const PasswordInputStory = Template.bind({});
 PasswordInputStory.args = {
     label: '비밀번호(8자 이상)',
-    title: '비밀번호 입력',
 }
 PasswordInputStory.storyName='비밀번호 입력';
 
 export const PasswordInputStory2 = Template.bind({});
 PasswordInputStory2.args = {
     label: '비밀번호 확인',
-    title: '비밀번호 확인',
 }
 PasswordInputStory2.storyName='비밀번호 확인';
 
