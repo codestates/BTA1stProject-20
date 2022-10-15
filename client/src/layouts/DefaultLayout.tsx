@@ -1,9 +1,14 @@
 import {Box} from "@mui/material";
 import {ReactNode} from "react";
 
-const DefaultLayout = (props: {children: ReactNode}) => {
+const DefaultLayout = (props: { children: ReactNode }) => {
     return (
-        <Box>
+        <Box
+            id="layout"
+            sx={{
+                px: 5
+            }}
+        >
             {props.children}
         </Box>
     )
