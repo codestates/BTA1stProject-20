@@ -1,10 +1,11 @@
 import {DefaultLayout} from "../layouts";
-import {Avatar, Box, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton} from "../components";
 import {useNavigate} from "react-router-dom";
+import {Verified as VerifiedIcon} from '@mui/icons-material';
 
-const Start = () => {
+const Wallet = () => {
     const navigate = useNavigate();
 
     return (
@@ -18,20 +19,17 @@ const Start = () => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar
-                    sx={{
-                        width: 140,
-                        height: 140,
-                    }}
-                    alt="$IMX"
-                    src="imx_icon_334.png"
-                />
+                <Box>
+                    <VerifiedIcon
+                        sx={{
+                            fontSize: '14rem',
+                            fill: '#37a638'
+                        }}
+                    />
+                </Box>
                 <Box>
                     <Box mt={2}>
-                        <Typography variant="h5">{`${STRINGS.GLOBAL.PROJECT_NAME} 방문을 환영합니다.`}</Typography>
-                    </Box>
-                    <Box width="100%">
-                        <Typography variant="body2">{STRINGS.GLOBAL.PROJECT_DESCRIPTION}</Typography>
+                        <Typography variant="body1">{STRINGS.ALL_SET.DESCRIPTION}</Typography>
                     </Box>
                 </Box>
                 <Box width="100%">
@@ -48,4 +46,4 @@ const Start = () => {
     )
 }
 
-export default Start;
+export default Wallet;

@@ -72,7 +72,7 @@ const SeedCheck = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            // mutate();
+                            navigate('/all-set');
                         }}
                         disabled={mnemonicError}
                     />

@@ -1,8 +1,14 @@
 const STRINGS = {
+    /************************
+     *   Global String 정보  *
+     ***********************/
     GLOBAL: {
       PROJECT_NAME: '$IMX Wallet',
       PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
     },
+    /************************
+     * Component String 정보 *
+     ***********************/
     ACTION_CARD: {
         BRING: {
             PRIMARY: '아뇨. 비밀 복구 구문이 있습니다.',
@@ -22,6 +28,12 @@ const STRINGS = {
         NEXT_BUTTON: {
             DEFAULT_LABEL: '다음으로',
         }
+    },
+    /************************
+     *    Page String 정보   *
+     ***********************/
+    ALL_SET: {
+        DESCRIPTION: '모두 완료되었습니다!\n이제 지갑을 둘러보세요.',
     },
     SEED_CHECK: {
         DESCRIPTION: '앞서 생성한 구문을 입력해 주세요.',
