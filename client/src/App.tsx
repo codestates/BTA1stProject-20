@@ -1,9 +1,9 @@
 import {useMemo, useState} from 'react';
-import {Box, createTheme, CssBaseline, IconButton, ThemeProvider, Typography} from "@mui/material";
+import {Box, createTheme, CssBaseline, IconButton, ThemeProvider} from "@mui/material";
 import {Brightness4 as Brightness4Icon, Brightness7 as Brightness7Icon} from '@mui/icons-material';
 import {ColorModeContext} from './contexts';
 import {Route, BrowserRouter, Routes, Navigate} from "react-router-dom";
-import {AskFirstTime, Start} from "./pages";
+import {AskFirstTime, BringWallet, CreateWallet, Start} from "./pages";
 
 // TODO: theme change
 // TODO: eslint, prettier 설정 추가
@@ -39,6 +39,8 @@ function App() {
                         <Route path="/" element={<Start />} />
                         <Route path="/start" element={<Start />} />
                         <Route path="/first-time" element={<AskFirstTime />} />
+                        <Route path="/create-wallet" element={<CreateWallet />} />
+                        <Route path="/bring-wallet" element={<BringWallet />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>

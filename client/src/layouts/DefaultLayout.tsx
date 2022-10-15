@@ -1,5 +1,7 @@
-import {Avatar, Box, BoxProps} from "@mui/material";
-import {FC, PropsWithChildren, ReactNode} from "react";
+import {Avatar, Box} from "@mui/material";
+
+import type {FC, PropsWithChildren} from "react";
+import type {BoxProps} from "@mui/material";
 
 export interface DefaultLayoutProps extends BoxProps {
     logo?: boolean;

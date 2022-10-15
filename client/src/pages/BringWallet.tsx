@@ -1,8 +1,8 @@
 import {DefaultLayout} from "../layouts";
 import {Box, Typography} from "@mui/material";
-import {ActionCard} from "../components";
+import {ActionCard, PasswordInput} from "../components";
 
-const AskFirstTime = () => {
+const BringWallet = () => {
     return (
         <DefaultLayout logo>
             <Box
@@ -14,7 +14,10 @@ const AskFirstTime = () => {
                 }}
             >
                 <Box width="100%" mb={1}>
-                    <Typography variant="h4">처음이신가요?</Typography>
+                    <Typography variant="h4">비밀번호 만들기</Typography>
+                </Box>
+                <Box>
+                    <PasswordInput variant="outlined" />
                 </Box>
                 <ActionCard type="create" />
                 <Box mb={1} />
@@ -24,4 +27,4 @@ const AskFirstTime = () => {
     )
 }
 
-export default AskFirstTime;
+export default BringWallet;
