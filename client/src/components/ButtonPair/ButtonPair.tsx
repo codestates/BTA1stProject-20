@@ -9,6 +9,7 @@ export interface ButtonPairProps {
     nextButtonLabel?: string;
     onPrevButtonClick: ButtonProps['onClick'];
     onNextButtonClick: ButtonProps['onClick'];
+    disabled?: boolean;
 }
 
 export const ButtonPair: FC<ButtonPairProps> = (props) => {
@@ -17,13 +18,13 @@ export const ButtonPair: FC<ButtonPairProps> = (props) => {
         nextButtonLabel = STRINGS.BUTTON_PAIR.NEXT_BUTTON.DEFAULT_LABEL,
         onPrevButtonClick,
         onNextButtonClick,
+        disabled = false,
     } = props;
 
     return (
         <Box
             sx={{
                 display: 'flex',
-                // justifyContent: 'center',
                 gap: 2,
                 alignItems: 'center',
             }}
@@ -39,6 +40,7 @@ export const ButtonPair: FC<ButtonPairProps> = (props) => {
                 variant="contained"
                 sx={{flex: 1}}
                 onClick={onNextButtonClick}
+                disabled={disabled}
             >
                 {nextButtonLabel}
             </Button>

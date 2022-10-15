@@ -2,9 +2,16 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
+import {useMemo, useState} from "react";
 
 const CreateWallet = () => {
     const navigate =  useNavigate();
+
+    const [password, setPassword] = useState<string>('');
+    const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+
+    const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
+    const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
 
     return (
         <DefaultLayout logo>
@@ -26,8 +33,24 @@ const CreateWallet = () => {
                         display="flex"
                         flexDirection="column"
                     >
-                        <PasswordInput label="비밀번호(8자 이상)" variant="outlined" />
-                        <PasswordInput label="비밀번호 확인" variant="outlined" />
+                        <PasswordInput
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }}
+                            error={passwordError}
+                            label="비밀번호(8자 이상)"
+                            variant="outlined"
+                        />
+                        <PasswordInput
+                            label={`비밀번호 확인${passwordConfirmError ? ' (비밀번호가 맞지 않습니다.)' : ''}`}
+                            value={passwordConfirm}
+                            onChange={(e) => {
+                                setPasswordConfirm(e.target.value);
+                            }}
+                            variant="outlined"
+                            error={passwordConfirmError}
+                        />
                     </Box>
                 </Box>
                 <Box>
@@ -38,6 +61,7 @@ const CreateWallet = () => {
                         onNextButtonClick={() => {
                             navigate('/');
                         }}
+                        disabled={password.length === 0 || passwordError || passwordConfirmError}
                     />
                 </Box>
             </Box>
