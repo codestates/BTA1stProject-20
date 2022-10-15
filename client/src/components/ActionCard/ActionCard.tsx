@@ -24,7 +24,7 @@ export const ActionCard: FC<ActionCardProps> = (props) => {
             labels: STRINGS.ACTION_CARD.BRING,
             nextPath: '/bring-wallet'
         }
-    }, [type])
+    }, [type]);
 
     return (
         <Box
