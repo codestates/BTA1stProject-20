@@ -1,7 +1,7 @@
 export default {
    ACTION_CARD: {
        BRING: {
-           PRIMARY: '아니오. 이미 비밀 복구 구문이 있습니다.',
+           PRIMARY: '아뇨. 비밀 복구 구문이 있습니다.',
            SECONDARY: '비밀 복구 구문을 사용하여 기존 지갑 가져오기',
            BUTTON_LABEL: '지갑 가져오기',
        },
