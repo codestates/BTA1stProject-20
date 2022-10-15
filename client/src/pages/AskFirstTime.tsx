@@ -13,11 +13,11 @@ const AskFirstTime = () => {
                     alignItems: 'center',
                 }}
             >
-                <Box width="100%" mb={1}>
+                <Box width="100%" mb={2}>
                     <Typography variant="h4">처음이신가요?</Typography>
                 </Box>
                 <ActionCard type="create" />
-                <Box mb={1} />
+                <Box mb={3} />
                 <ActionCard type="bring" />
             </Box>
         </DefaultLayout>
