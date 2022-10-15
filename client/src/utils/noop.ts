@@ -1,3 +1,5 @@
-export default () => {
+const noop = () => {
     // do nothing
-}
+};
+
+export default noop;

@@ -1,6 +1,6 @@
 import {MnemonicInput} from './MnemonicInput';
 import {DefaultLayout} from "../../layouts";
-import {copyToclipboard} from "../../utils";
+import {copyToClipboard} from "../../utils";
 
 import type {ComponentMeta, ComponentStory} from "@storybook/react";
 
@@ -37,7 +37,7 @@ MnemonicInputStory.args = {
     label: 'seed phrase',
     value: SEED_EXAMPLE,
     onCopyText: () => {
-        copyToclipboard(SEED_EXAMPLE).then(() => {
+        copyToClipboard(SEED_EXAMPLE).then(() => {
             alert('copied');
         })
     },

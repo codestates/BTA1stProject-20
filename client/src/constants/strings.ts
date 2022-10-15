@@ -1,4 +1,4 @@
-export default {
+const STRINGS = {
     GLOBAL: {
       PROJECT_NAME: '$IMX Wallet',
       PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
@@ -22,5 +22,11 @@ export default {
         NEXT_BUTTON: {
             DEFAULT_LABEL: '다음으로',
         }
+    },
+    SEED_REVEAL: {
+        DESCRIPTION: '비밀 복구 구문을 이용하면\n계정을 쉽게 백업하고 복구할 수 있습니다',
+        WARNING: '경고:  비밀 복구 구문은 절대로 공개하지 마세요. \n이 구문이 있는 사람은 귀하의 자산을 탈취할 수 있습니다.'
     }
 }
+
+export default STRINGS;

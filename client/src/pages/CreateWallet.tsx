@@ -38,9 +38,9 @@ const CreateWallet = () => {
     useEffect(() => {
         console.log({data, isLoading, error});
         if (data) {
-            navigate('/error');
+            navigate('/seed-reveal');
         }
-    }, [data, isLoading, error]);
+    }, [navigate, data, isLoading, error]);
 
     return (
         <DefaultLayout logo>

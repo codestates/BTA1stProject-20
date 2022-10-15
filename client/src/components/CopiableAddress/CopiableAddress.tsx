@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from "react";
 import {Box, Tooltip} from '@mui/material';
 import {ContentCopy as ContentCopyIcon} from '@mui/icons-material';
-import {copyToclipboard} from "../../utils";
+import {copyToClipboard} from "../../utils";
 
 import type {FC} from "react";
 import type {BoxProps} from '@mui/material';
@@ -19,7 +19,7 @@ export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
     }, [address]);
 
     const handleCopyButtonClick: BoxProps['onClick'] = useCallback(() => {
-        copyToclipboard(address).then(() => {
+        copyToClipboard(address).then(() => {
             alert('copied');
         })
     }, [address]);
