@@ -8,7 +8,6 @@ const Start = () => {
     return (
         <DefaultLayout>
             <Box
-                mt={14}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -31,7 +30,7 @@ const Start = () => {
                     <Typography variant="body2">{STRINGS.GLOBAL.PROJECT_DESCRIPTION}</Typography>
                 </Box>
                 <Box flex={1} width="100%">
-                    <Link to="/page1">
+                    <Link to="/first-time">
                         <FullButton >
                             시작하기
                         </FullButton>

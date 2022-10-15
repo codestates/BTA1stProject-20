@@ -1,9 +1,8 @@
 import {useMemo, useState} from 'react';
-import {Box, Button, createTheme, CssBaseline, IconButton, ThemeProvider, Typography} from "@mui/material";
-import {Brightness4 as Brightness4Icon, Brightness7 as Brightness7Icon} from '@mui/icons-material';
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {ColorModeContext} from './contexts';
-import {Route, BrowserRouter, Routes} from "react-router-dom";
-import {Page1, Page2, Start} from "./pages";
+import {Route, BrowserRouter, Routes, Navigate} from "react-router-dom";
+import {AskFirstTime, Start} from "./pages";
 
 // TODO: theme change
 // TODO: eslint, prettier 설정 추가
@@ -29,33 +28,13 @@ function App() {
             <CssBaseline />
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%',
-                            height: '100%',
-                            alignItems: 'center',
-                            backgroundColor: 'background.default',
-                            color: 'text.primary',
-                            p: 3,
-                        }}
-                    >
-                        <Box>
-                            <Typography display="inline" variant="body1">
-                                {theme.palette.mode} mode
-                            </Typography>
-                            <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
-                                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                            </IconButton>
-                        </Box>
-                        <Routes>
-                            <Route path="/" element={<Start />} />
-                            <Route path="/start" element={<Start />} />
-                            <Route path="/page1" element={<Page1 />} />
-                            <Route path="/page2" element={<Page2 />} />
-                        </Routes>
-                    </Box>
+
+                    <Routes>
+                        <Route path="index.html" element={<Navigate replace to="/" />} />
+                        <Route path="/" element={<Start />} />
+                        <Route path="/start" element={<Start />} />
+                        <Route path="/first-time" element={<AskFirstTime />} />
+                    </Routes>
                 </BrowserRouter>
             </ThemeProvider>
         </ColorModeContext.Provider>

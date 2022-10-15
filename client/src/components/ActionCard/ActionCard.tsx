@@ -29,6 +29,8 @@ export const ActionCard: FC<ActionCardProps> = (props) => {
             onClick={onClick}
             sx={{
                 p: 2.75,
+                pt: 1.5,
+                width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -42,7 +44,7 @@ export const ActionCard: FC<ActionCardProps> = (props) => {
                 }
             }}
         >
-            <IconComponent sx={{fontSize: '5rem'}} />
+            <IconComponent sx={{fontSize: '4rem'}} />
             <Box mt={1}>
                 <Typography variant="h6">{labels.PRIMARY}</Typography>
             </Box>
