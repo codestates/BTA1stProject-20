@@ -5,12 +5,15 @@ import {useMutation} from "react-query";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
 import {ENDPOINTS} from "../constants";
+import {useSetRecoilState} from "recoil";
+import {MnemonicState} from "../states";
 
 const CreateWallet = () => {
     const navigate =  useNavigate();
 
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+    const setMnemonic = useSetRecoilState(MnemonicState);
 
     const getMnemonic = async () => {
         try {
@@ -24,7 +27,7 @@ const CreateWallet = () => {
                 body: JSON.stringify({password, ...mnemonic})
             });
             const result = await res2.json();
-            return {mnemonic, result};
+            return {...mnemonic, result};
         } catch (e) {
             console.error(e);
         }
@@ -36,8 +39,8 @@ const CreateWallet = () => {
     const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
 
     useEffect(() => {
-        console.log({data, isLoading, error});
         if (data) {
+            setMnemonic(data.mnemonic);
             navigate('/seed-reveal');
         }
     }, [navigate, data, isLoading, error]);

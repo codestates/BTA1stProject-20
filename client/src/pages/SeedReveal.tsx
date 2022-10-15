@@ -4,9 +4,12 @@ import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput} from "../components";
 import {STRINGS} from "../constants";
 import {copyToClipboard} from "../utils";
+import {useRecoilValue} from "recoil";
+import {MnemonicState} from "../states";
 
 const SeedReveal = () => {
     const navigate = useNavigate();
+    const mnemonic = useRecoilValue(MnemonicState);
 
     return (
         <DefaultLayout logo>
@@ -39,9 +42,9 @@ const SeedReveal = () => {
                     >
                         <MnemonicInput
                             label="seed phrase"
-                            value={"test ".repeat(12)}
+                            value={mnemonic}
                             onCopyText={() => {
-                                copyToClipboard("test ".repeat(12)).then(() => {
+                                copyToClipboard(mnemonic).then(() => {
                                     alert('copied');
                                 });
                             }}
