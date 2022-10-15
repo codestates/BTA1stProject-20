@@ -3,13 +3,20 @@ import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput} from "../components";
 import {STRINGS} from "../constants";
-import {copyToClipboard} from "../utils";
 import {useRecoilValue} from "recoil";
 import {MnemonicState} from "../states";
+import {useMemo, useState} from "react";
 
-const SeedReveal = () => {
+const SeedCheck = () => {
     const navigate = useNavigate();
     const mnemonic = useRecoilValue(MnemonicState);
+    const [mnemonicInput, setMnemonicInput] = useState<string>('');
+    const mnemonicError = useMemo(
+        () => (
+                mnemonicInput.length > 0 && mnemonicInput.split(' ').length !== 12)
+            || mnemonic !== mnemonicInput,
+        [mnemonicInput]
+    );
 
     return (
         <DefaultLayout logo>
@@ -23,14 +30,14 @@ const SeedReveal = () => {
             >
                 <Box>
                     <Box width="100%" mb={6}>
-                        <Typography variant="h4">비밀 복구 구문</Typography>
+                        <Typography variant="h4">비밀 복구 구문 확인</Typography>
                     </Box>
                     <Box mt={2}>
                         <Typography
                             whiteSpace="break-spaces"
                             variant="body1"
                         >
-                            {STRINGS.SEED_REVEAL.DESCRIPTION}
+                            {STRINGS.SEED_CHECK.DESCRIPTION}
                         </Typography>
                     </Box>
                     <Box
@@ -42,12 +49,11 @@ const SeedReveal = () => {
                     >
                         <MnemonicInput
                             label="seed phrase"
-                            value={mnemonic}
-                            onCopyText={() => {
-                                copyToClipboard(mnemonic).then(() => {
-                                    alert('copied');
-                                });
+                            value={mnemonicInput}
+                            onChange={(e) => {
+                                setMnemonicInput(e.target.value);
                             }}
+                            error={mnemonicError}
                         />
                     </Box>
                     <Box mt={2}>
@@ -56,7 +62,7 @@ const SeedReveal = () => {
                             variant="body2"
                             color="grey.700"
                         >
-                            {STRINGS.SEED_REVEAL.WARNING}
+                            {STRINGS.SEED_CHECK.WARNING}
                         </Typography>
                     </Box>
                 </Box>
@@ -66,9 +72,9 @@ const SeedReveal = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            navigate('/seed-check');
+                            // mutate();
                         }}
-                        disabled={false}
+                        disabled={mnemonicError}
                     />
                 </Box>
             </Box>
@@ -76,4 +82,4 @@ const SeedReveal = () => {
     )
 }
 
-export default SeedReveal;
+export default SeedCheck;
