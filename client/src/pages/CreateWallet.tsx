@@ -36,7 +36,7 @@ const CreateWallet = () => {
     const {data, mutate, isLoading, error} = useMutation(getMnemonic, {});
 
     const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
-    const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
+    const passwordConfirmError = useMemo(() => passwordConfirm.length >0 &&  password !== passwordConfirm, [password, passwordConfirm]);
 
     useEffect(() => {
         if (data) {
