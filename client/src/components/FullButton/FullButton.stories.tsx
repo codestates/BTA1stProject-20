@@ -1,14 +1,17 @@
-import React from 'react';
-
 import {FullButton} from './FullButton';
 
-export default {
-    /* 👇 The title prop is optional.
-    * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-    * to learn how to generate automatic titles
-    */
-    title: 'FullButton',
-    component: FullButton,
-};
+import type {ComponentMeta, ComponentStory} from "@storybook/react";
 
-export const Primary = () => <FullButton>text</FullButton>;
+export default {
+    title: 'Components/FullButton',
+    component: FullButton,
+} as ComponentMeta<typeof FullButton>;
+
+const Template: ComponentStory<typeof FullButton> = (args) => {
+    return <FullButton {...args} />;
+}
+
+export const FullButtonStory = Template.bind({});
+FullButtonStory.args = {
+    children: 'hello'
+}
