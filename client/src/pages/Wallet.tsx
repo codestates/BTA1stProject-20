@@ -1,48 +1,88 @@
-import {DefaultLayout} from "../layouts";
-import {Box, Typography} from "@mui/material";
+import {WalletLayout} from "../layouts";
+import {Avatar, Box, SelectChangeEvent, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
-import {FullButton} from "../components";
-import {useNavigate} from "react-router-dom";
-import {Verified as VerifiedIcon} from '@mui/icons-material';
+import {CoinCard, CopiableAddress, NetworkSelector} from "../components";
+import {useState} from "react";
+
+const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
+const NETWORKS = [
+    {
+        label: 'Immutable X Layer 2 (Goerli-testnet)',
+        value: 'Immutable X',
+        disabled: false,
+    },
+    {
+        label: 'Immutable X Layer 2 (Mainnet)',
+        value: 'Immutable X Main',
+        disabled: true,
+    },
+];
+
+const BALANCES = [
+    {
+        name: 'Immutable X',
+        ticker: 'IMX',
+        balance: '0.050000',
+    }
+]
 
 const Wallet = () => {
-    const navigate = useNavigate();
+    const [network, setNetwork] = useState<string>(NETWORKS[0].value);
 
     return (
-        <DefaultLayout>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
-                <Box>
-                    <VerifiedIcon
+        <WalletLayout
+            topNode={
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <CopiableAddress address={ADDRESS} />
+                    <Avatar
                         sx={{
-                            fontSize: '14rem',
-                            fill: '#37a638'
+                            width: 25,
+                            height: 25,
                         }}
+                        alt="$IMX"
+                        src="imx_icon_334.png"
                     />
                 </Box>
-                <Box>
-                    <Box mt={2}>
-                        <Typography variant="body1">{STRINGS.ALL_SET.DESCRIPTION}</Typography>
+            }
+            middleNode={
+                <Box
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    sx={{transform: 'translateY(-20px)'}}
+                >
+                    <NetworkSelector
+                        options={NETWORKS}
+                        value={network}
+                        onChange={(e) => {
+                            setNetwork(e.target.value as string);
+                        }}
+                    />
+                    <Box width="100%" pt={3}>
+                        {BALANCES.map((balance) => {
+                            return <CoinCard {...balance} />
+                        })}
                     </Box>
                 </Box>
-                <Box width="100%">
-                    <FullButton
-                        onClick={() => {
-                            navigate('/first-time')
-                        }}
-                    >
-                        시작하기
-                    </FullButton>
+            }
+            bottomNode={
+                <Box
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    bottom
                 </Box>
-            </Box>
-        </DefaultLayout>
+            }
+        />
     )
 }
 

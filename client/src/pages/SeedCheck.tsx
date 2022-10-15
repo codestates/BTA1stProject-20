@@ -15,7 +15,7 @@ const SeedCheck = () => {
         () => (
                 mnemonicInput.length > 0 && mnemonicInput.split(' ').length !== 12)
             || mnemonic !== mnemonicInput,
-        [mnemonicInput]
+        [mnemonic, mnemonicInput]
     );
 
     return (

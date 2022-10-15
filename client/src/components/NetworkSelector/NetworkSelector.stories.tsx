@@ -32,10 +32,12 @@ NetworkSelectorStory.args = {
         {
             label: 'Immutable X Layer 2(Goerli-testnet)',
             value: 'Immutable X',
+            disabled: false,
         },
         {
             label: 'Ethereum',
             value: 'Ethereum',
+            disabled: true,
         }
     ]
 }

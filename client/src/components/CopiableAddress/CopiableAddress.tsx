@@ -20,7 +20,7 @@ export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
 
     const handleCopyButtonClick: BoxProps['onClick'] = useCallback(() => {
         copyToClipboard(address).then(() => {
-            alert('copied');
+            alert(`${address} 복사 완료!`);
         })
     }, [address]);
 

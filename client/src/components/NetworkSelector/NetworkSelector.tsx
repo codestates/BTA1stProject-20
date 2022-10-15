@@ -4,7 +4,7 @@ import type {FC} from "react";
 import type {SelectProps} from '@mui/material';
 
 export interface NetworkSelectorProps extends SelectProps {
-    options: { label: string; value: string; }[];
+    options: { label: string; value: string; disabled: boolean }[];
 }
 
 export const NetworkSelector: FC<NetworkSelectorProps> = (props) => {
@@ -13,10 +13,28 @@ export const NetworkSelector: FC<NetworkSelectorProps> = (props) => {
     return (
         <Box mx={1}>
             <FormControl fullWidth size="small">
-                <Select value={value} onChange={onChange}>
-                    {options.map(({label, value}) => {
+                <Select
+                    value={value}
+                    onChange={onChange}
+                    sx={{
+                        borderRadius: '30px',
+                        '& .MuiInputBase-input': {
+                            color: 'background.default',
+                            // bgcolor: 'text.primary',
+                            bgcolor: 'primary.main',
+                            borderRadius: '30px',
+                            '&:focus': {
+                                borderRadius: '30px',
+                            }
+                        },
+                        '& .MuiSelect-icon': {
+                            fill: (theme) => theme.palette.background.default,
+                        }
+                    }}
+                >
+                    {options.map(({label, value, disabled}) => {
                         return (
-                            <MenuItem value={value}>{label}</MenuItem>
+                            <MenuItem disabled={disabled} value={value}>{label}</MenuItem>
                         )
                     })}
                 </Select>

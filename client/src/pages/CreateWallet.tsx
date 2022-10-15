@@ -43,7 +43,7 @@ const CreateWallet = () => {
             setMnemonic(data.mnemonic);
             navigate('/seed-reveal');
         }
-    }, [navigate, data, isLoading, error]);
+    }, [setMnemonic, navigate, data, isLoading, error]);
 
     return (
         <DefaultLayout logo>

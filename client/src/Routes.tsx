@@ -11,7 +11,7 @@ import {
     Wallet,
 } from "./pages";
 
-export default function () {
+export default function _Routes() {
     return (
         <Routes>
             <Route path="index.html" element={<Navigate replace to="/" />} />

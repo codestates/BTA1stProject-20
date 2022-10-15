@@ -18,8 +18,8 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
         <Box
             onClick={onClick}
             sx={{
-                p: 2.75,
-                mx: 2,
+                p: 2,
+                mx: 1,
                 display: 'flex',
                 gap: 2,
                 border: '1px solid',
