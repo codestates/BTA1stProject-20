@@ -1,8 +1,10 @@
+import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
+import {useMutation} from "react-query";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
-import {useMemo, useState} from "react";
+import {ENDPOINTS} from "../constants";
 
 const CreateWallet = () => {
     const navigate =  useNavigate();
@@ -10,8 +12,32 @@ const CreateWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
+    const getMnemonic = async () => {
+        const res = await fetch(ENDPOINTS.NEW_NEMONIC, {method: 'POST'});
+        const mnemonic = await res.json();
+        const res2 = await fetch(ENDPOINTS.NEW_WALLET, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({password, ...mnemonic})
+        });
+        const result = await res2.json();
+        return {mnemonic, result};
+    };
+
+    const {data, mutate, isLoading, error} = useMutation(getMnemonic, {
+        // onSuccess: data => {
+            // console.log(data);
+        // }
+    });
+
     const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
     const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
+
+    useEffect(() => {
+        console.log({data, isLoading, error});
+    }, [data, isLoading, error]);
 
     return (
         <DefaultLayout logo>
@@ -59,7 +85,7 @@ const CreateWallet = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            navigate('/');
+                            mutate();
                         }}
                         disabled={password.length === 0 || passwordError || passwordConfirmError}
                     />
