@@ -1,7 +1,7 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, SelectChangeEvent, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
-import {CoinCard, CopiableAddress, NetworkSelector} from "../components";
+import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useState} from "react";
 
 const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
@@ -79,7 +79,7 @@ const Wallet = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    bottom
+                    <FakeTab activeIndex={0} />
                 </Box>
             }
         />

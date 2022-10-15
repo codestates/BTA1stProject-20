@@ -2,6 +2,7 @@ export {ActionCard} from './ActionCard';
 export {ButtonPair} from './ButtonPair';
 export {CoinCard} from './CoinCard';
 export {CopiableAddress} from './CopiableAddress';
+export {FakeTab} from './FakeTab';
 export {FullButton} from './FullButton';
 export {MnemonicInput} from './MnemonicInput';
 export {NetworkSelector} from './NetworkSelector';

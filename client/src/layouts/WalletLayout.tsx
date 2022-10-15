@@ -35,7 +35,7 @@ const WalletLayout: FC<WalletLayoutProps> = (props) => {
             </Box>
             <Box
                 sx={{
-                    height: '75%',
+                    height: '73%',
                     px: 5,
                 }}
             >
@@ -43,7 +43,7 @@ const WalletLayout: FC<WalletLayoutProps> = (props) => {
             </Box>
             <Box
                 sx={{
-                    height: '10%',
+                    height: '12%',
                     px: 5,
                     bgcolor: 'grey.400'
                 }}
