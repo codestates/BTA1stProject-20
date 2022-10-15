@@ -1,8 +1,12 @@
-import {Avatar, Box} from "@mui/material";
-import {ReactNode} from "react";
+import {Avatar, Box, BoxProps} from "@mui/material";
+import {FC, PropsWithChildren, ReactNode} from "react";
 
-const DefaultLayout = (props: { children: ReactNode, logo?: boolean }) => {
-    const {children, logo = false} = props;
+export interface DefaultLayoutProps extends BoxProps {
+    logo?: boolean;
+}
+
+const DefaultLayout: FC<PropsWithChildren<DefaultLayoutProps>> = (props) => {
+    const {children, logo = false, sx = {}, ...rest} = props;
 
     return (
         <Box
@@ -11,8 +15,10 @@ const DefaultLayout = (props: { children: ReactNode, logo?: boolean }) => {
                 p: 5,
                 pt: 8,
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                ...sx,
             }}
+            {...rest}
         >
             {logo && (
                 <Box position="absolute" left={15} top={15}>

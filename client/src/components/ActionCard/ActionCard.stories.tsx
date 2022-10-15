@@ -19,7 +19,4 @@ const Template: ComponentStory<typeof ActionCard> = (args) => {
 export const ActionCardStory = Template.bind({});
 ActionCardStory.args = {
     type: 'create',
-    onClick: () => {
-        console.log('click');
-    }
 }
