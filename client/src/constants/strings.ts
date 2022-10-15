@@ -1,4 +1,8 @@
 export default {
+    GLOBAL: {
+      PROJECT_NAME: '$IMX Wallet',
+      PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
+    },
     ACTION_CARD: {
         BRING: {
             PRIMARY: '아뇨. 비밀 복구 구문이 있습니다.',

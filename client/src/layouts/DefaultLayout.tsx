@@ -6,7 +6,9 @@ const DefaultLayout = (props: { children: ReactNode }) => {
         <Box
             id="layout"
             sx={{
-                px: 5
+                px: 5,
+                width: '100%',
+                height: '100%'
             }}
         >
             {props.children}

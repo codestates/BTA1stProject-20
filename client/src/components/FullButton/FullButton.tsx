@@ -9,6 +9,7 @@ export const FullButton: FC<FullButtonProps> = (props) => {
     return (
         <Button
             variant="contained"
+            fullWidth
             {...props}
         />
     )
