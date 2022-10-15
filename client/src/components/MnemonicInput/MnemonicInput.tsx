@@ -4,7 +4,7 @@ import {ContentCopy as ContentCopyIcon} from '@mui/icons-material';
 import type {FC} from "react";
 import type {OutlinedTextFieldProps} from '@mui/material';
 
-export interface MnemonicInputProps extends OutlinedTextFieldProps {
+export interface MnemonicInputProps extends Omit<OutlinedTextFieldProps, 'variant'> {
     onCopyText?: (() => void) | null;
 }
 
@@ -12,7 +12,7 @@ export const MnemonicInput: FC<MnemonicInputProps> = (props) => {
     const {label = 'label', onCopyText, ...rest} = props;
 
     return (
-        <Box mx={2} position="relative">
+        <Box position="relative">
             <TextField
                 {...rest}
                 multiline
