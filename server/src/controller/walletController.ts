@@ -7,14 +7,23 @@ import Util from '../utility/util';
 export default class WalletController extends BaseController {         
 
     static createWallet : IController = async (req, res) => {
-
         const { password, mnemonicPhrase } = req.body;
-
         try {     
             await WalletService.createWallet(password, mnemonicPhrase, res);
         }
         catch (err: any) {            
             err.source = "WalletController:createWallet";
+            ApiResponse.error(res, err);
+        }
+    }
+
+    static login : IController = async (req, res) => {
+        const { password, mnemonicPhrase } = req.body;
+        try {     
+            await WalletService.createWallet(password, mnemonicPhrase, res);
+        }
+        catch (err: any) {            
+            err.source = "WalletController:login";
             ApiResponse.error(res, err);
         }
     }
@@ -45,10 +54,8 @@ export default class WalletController extends BaseController {
 
     static getPrivatekey : IController = async (req, res) => {
         const password = Util.String(req.query.password);
-        const mnemonicPhrase = Util.String(req.query.mnemonicPhrase);
         try {     
-            await WalletService.getPrivatekey(password, mnemonicPhrase, res);
-            // ApiResponse.result(res, balance, 200);
+            await WalletService.getPrivatekey(password, res);
         }
         catch (err: any) {            
             err.source = "WalletController:getPrivatekey";
@@ -61,7 +68,6 @@ export default class WalletController extends BaseController {
         
         try {     
             await WalletService.getMyMnemonic(password, res);
-            // ApiResponse.result(res, balance, 200);
         }
         catch (err: any) {            
             err.source = "WalletController:getMyMnemonic";
@@ -90,5 +96,3 @@ export default class WalletController extends BaseController {
     }
 
 }
-
-
