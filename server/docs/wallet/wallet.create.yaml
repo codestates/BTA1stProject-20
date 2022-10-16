@@ -1,7 +1,7 @@
 post: 
   tags:
     - WALLET
-  summary: Transfer Coin (ex. ETH)
+  summary: Create Wallet
   requestBody:
     description: ""
     required: true
@@ -10,13 +10,10 @@ post:
         schema:
           type: object
           properties:
-            fromAddress:
+            password:
               type: string
               required: true
-            toAddress:
-              type: string
-              required: true
-            amount:
+            mnemonicPhrase:
               type: string
               required: true
             
