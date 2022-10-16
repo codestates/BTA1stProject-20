@@ -61,7 +61,7 @@ const WelcomeBack = () => {
                         width: 140,
                         height: 140,
                     }}
-                    alt="$IMX"
+                    alt="$PALM"
                 />
                 <Box>
                     <Box mt={2}>

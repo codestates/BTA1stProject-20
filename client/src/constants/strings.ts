@@ -3,9 +3,9 @@ const STRINGS = {
      *   Global String 정보  *
      ***********************/
     GLOBAL: {
-        PROJECT_NAME: '$IMX Wallet',
-        PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
-        COIN_NAME: 'IMX',
+        PROJECT_NAME: '$PALM Wallet',
+        PROJECT_DESCRIPTION: '아래 버튼을 눌러 시작하세요.',
+        COIN_NAME: 'PALM',
     },
     /************************
      * Component String 정보 *
@@ -35,6 +35,7 @@ const STRINGS = {
      ***********************/
     ALL_SET: {
         DESCRIPTION: '모두 완료되었습니다!\n이제 지갑을 둘러보세요.',
+        TRANSFER: '송금이 완료되었습니다!',
     },
     SEED_CHECK: {
         DESCRIPTION: '앞서 생성한 구문을 입력해 주세요.',

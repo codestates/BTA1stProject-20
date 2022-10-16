@@ -30,8 +30,8 @@ export const NetworkSelectorStory = Template.bind({});
 NetworkSelectorStory.args = {
     options: [
         {
-            label: 'Immutable X Layer 2(Goerli-testnet)',
-            value: 'Immutable X',
+            label: 'palm Layer 2(testnet)',
+            value: 'palm',
             disabled: false,
         },
         {
