@@ -4,6 +4,7 @@ import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../componen
 import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
+import {addPrefixToAddress} from "../utils";
 
 const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
@@ -130,7 +131,7 @@ const SendInput = () => {
                                 navigate('/send');
                             }}
                             onNextButtonClick={() => {
-                                navigate(`confirm?address=${address}&amount=${amount}`);
+                                navigate(`confirm?address=${addPrefixToAddress(address)}&amount=${amount}`);
                             }}
                             disabled={address.length === 0 || amount.length === 0 || addressError || amountError}
                         />
