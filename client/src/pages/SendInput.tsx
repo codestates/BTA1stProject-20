@@ -1,7 +1,7 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 
@@ -35,7 +35,17 @@ const SendInput = () => {
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
-    // TODO: input check
+    // TODO: balance도 가져와서 input check
+    const addressError = useMemo(() => {
+        const addr = /0x/.test(address) ? address : `0x${address}`;
+        return address.length > 0 && addr.length !== 42;
+    }, [address]);
+
+    const amountError = useMemo(() => {
+        const parsedAmount = parseFloat(amount)
+        return amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0);
+    }, [amount]);
+
     return (
         <WalletLayout
             topNode={
@@ -98,6 +108,7 @@ const SendInput = () => {
                                 onChange={(e) => {
                                     setAddress(e.target.value)
                                 }}
+                                error={addressError}
                             />
                             <SendCoinInput
                                 inputType="amount"
@@ -108,6 +119,7 @@ const SendInput = () => {
                                 onChange={(e) => {
                                     setAmount(e.target.value)
                                 }}
+                                error={amountError}
                                 unit={ticker}
                             />
                         </Box>
@@ -120,7 +132,7 @@ const SendInput = () => {
                             onNextButtonClick={() => {
                                 navigate(`confirm?address=${address}&amount=${amount}`);
                             }}
-                            disabled={false}
+                            disabled={address.length === 0 || amount.length === 0 || addressError || amountError}
                         />
                     </Box>
                 </Box>

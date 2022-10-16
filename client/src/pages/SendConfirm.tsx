@@ -2,7 +2,7 @@ import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useMemo, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {SendCoinInput} from "../components";
 
 const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
@@ -39,9 +39,9 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
     const {address, amount} = useQueryParams();
-    console.log(address, amount);
+    const {ticker} = useParams();
 
     return (
         <WalletLayout
@@ -82,42 +82,31 @@ const SendConfirm = () => {
                             }}
                         />
                     </Box>
-                    <Box display="flex" flexDirection="column" alignItems="center" gap={3} mt={-10} width="100%">
-                        <Box display="flex" flexDirection="column" alignItems="center" gap={0.5}>
-                            <Box mt={3}>
-                                <Typography fontWeight={700} variant="h6">{`송금하기`}</Typography>
-                            </Box>
-                            <Avatar
-                                sx={{
-                                    width: 40,
-                                    height: 40,
-                                }}
-                                alt="$IMX"
-                                src="/imx_icon_334.png"
-                            />
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="left"
+                        gap={2}
+                        mt={-20}
+                        width="100%"
+                    >
+                        <Box>
+                            <Typography variant="h5">Send Address</Typography>
+                            <Typography color="text.secondary" variant="subtitle2">{address}</Typography>
                         </Box>
-                        <Box width="100%" display="flex" flexDirection="column" gap={2}>
-                            <SendCoinInput
-                                inputType="address"
-                                label="보내는 주소"
-                                variant="outlined"
-                            />
-                            <SendCoinInput
-                                inputType="amount"
-                                label="금액"
-                                placeholder="0"
-                                variant="outlined"
-                                unit={''}
-                            />
+                        <Box>
+                            <Typography variant="h5">Amount</Typography>
+                            <Typography color="text.secondary" variant="body1">{`${amount} ${ticker}`}</Typography>
                         </Box>
                     </Box>
                     <Box width="100%">
                         <ButtonPair
+                            nextButtonLabel="확인 완료"
                             onPrevButtonClick={() => {
                                 navigate(-1);
                             }}
                             onNextButtonClick={() => {
-
+                                alert('송금 api 호출');
                             }}
                             disabled={false}
                         />
