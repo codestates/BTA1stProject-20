@@ -6,6 +6,20 @@ import Util from '../utility/util';
 
 export default class WalletController extends BaseController {         
 
+    static createWallet : IController = async (req, res) => {
+
+        const { password, mnemonicPhrase } = req.body;
+
+        try {     
+            await WalletService.createWallet(password, mnemonicPhrase, res);
+        }
+        catch (err: any) {            
+            err.source = "WalletController:createWallet";
+            ApiResponse.error(res, err);
+        }
+    }
+
+
     static generateMnemonicCode : IController = async (req, res) => {
         try {     
             let mnemonicCode = await WalletService.generateMnemonicCode();
@@ -13,18 +27,6 @@ export default class WalletController extends BaseController {
         }
         catch (err: any) {            
             err.source = "WalletController:generateMnemonicCode";
-            ApiResponse.error(res, err);
-        }
-    }
-
-    static getWalletAddress : IController = async (req, res) => {
-            const index = Util.String(req.params.index);
-        try {     
-            let walletAddress = await WalletService.getWalletAddress(index);
-            ApiResponse.result(res, { walletAddress: walletAddress }, 200);
-        }
-        catch (err: any) {            
-            err.source = "WalletController:getWalletAddress";
             ApiResponse.error(res, err);
         }
     }
