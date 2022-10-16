@@ -1,17 +1,18 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ENDPOINTS, STRINGS} from "../constants";
 import {FullButton, PasswordInput} from "../components";
-import {useRecoilValue} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {GlobalState} from "../states";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useMutation} from "react-query";
 
 const WelcomeBack = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState<string>('');
     const {password: storedPassword, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
+    const setGlobalState = useSetRecoilState(GlobalState);
 
     const login = async () => {
         try {
@@ -31,6 +32,18 @@ const WelcomeBack = () => {
 
     const {data, mutate, isLoading, error} = useMutation(login, {});
 
+    useEffect(() => {
+        console.log(data);
+        if (data?.success) {
+            setGlobalState({address: data.data.walletAddress, mnemonic: mnemonicPhrase, password: password ?? ''})
+            if (chrome?.storage?.local) {
+                chrome.storage.local.set({data: {mnemonic: mnemonicPhrase, address: data.walletAddress, password}}, function() {
+
+                });
+            }
+            navigate('/wallet');
+        }
+    }, [data]);
 
     return (
         <DefaultLayout>
@@ -67,13 +80,15 @@ const WelcomeBack = () => {
                             setPassword(e.target.value);
                         }}
                         error={password.length > 0 && password !== storedPassword}
-                        helperText={password !== storedPassword ? 'password를 확인해 주세요.' : ''}
+                        // helperText={password !== storedPassword ? 'password를 확인해 주세요.' : ''}
                     />
                 </Box>
+                <Link to="/first-time">처음부터 세팅하고 싶으신가요</Link>
+
                 <Box width="100%">
                     <FullButton
                         onClick={() => {
-                            navigate('/first-time')
+                            mutate();
                         }}
                         disabled={password !== storedPassword}
                     >

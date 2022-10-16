@@ -7,6 +7,8 @@ const ENDPOINTS = {
     BALANCE: `${HOST}/balance`,
     TRANSFER: `${HOST}/transfer`,
     LOGIN: `${HOST}/login`,
+    GET_PRIVATE_KEY: `${HOST}/privatekey`,
+    GET_MY_MNEMONIC: `${HOST}/myMnemonic`,
 }
 
 export default ENDPOINTS;

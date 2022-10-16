@@ -2,7 +2,11 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
+import {ENDPOINTS} from "../constants";
+import {useMutation} from "react-query";
+import {useSetRecoilState} from "recoil";
+import {GlobalState} from "../states";
 
 const BringWallet = () => {
     const navigate = useNavigate();
@@ -10,9 +14,42 @@ const BringWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
+    const setGlobalState = useSetRecoilState(GlobalState);
+
     const seedPhraseError = useMemo(() => seedPhrase.length > 0 && seedPhrase.split(' ').length !== 12, [seedPhrase]);
     const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
     const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
+
+    const login = async () => {
+        try {
+            const res = await fetch(ENDPOINTS.LOGIN, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({password, mnemonicPhrase: seedPhrase})
+            });
+            return await res.json();
+
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const {data, mutate, isLoading, error} = useMutation(login, {});
+
+    useEffect(() => {
+        console.log(data);
+        if (data?.success) {
+            setGlobalState({address: data.data.walletAddress, mnemonic: seedPhrase, password: password ?? ''})
+            if (chrome?.storage?.local) {
+                chrome.storage.local.set({data: {mnemonic: seedPhrase, address: data.walletAddress, password}}, function() {
+
+                });
+            }
+            navigate('/wallet');
+        }
+    }, [data]);
 
     return (
         <DefaultLayout logo>
@@ -68,7 +105,7 @@ const BringWallet = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            navigate('/');
+                            mutate();
                         }}
                         disabled={password.length === 0 || passwordError || passwordConfirmError || seedPhraseError}
                     />
