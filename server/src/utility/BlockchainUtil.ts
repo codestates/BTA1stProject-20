@@ -1,4 +1,5 @@
 const axios = require('axios').default;
+import ApiResponse from '../utility/apiResponse';
 import { Transaction } from 'ethereumjs-tx';
 
 const chain = 'goerli';
