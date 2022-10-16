@@ -1,1 +1,1 @@
-export {MnemonicState} from './atoms';
+export {GlobalState} from './atoms';

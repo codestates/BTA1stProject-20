@@ -4,19 +4,22 @@ import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton} from "../components";
+import {useSetRecoilState} from "recoil";
+import {GlobalState} from "../states";
 
 const Start = () => {
     const navigate = useNavigate();
-
+    const setGlobalState = useSetRecoilState(GlobalState);
     // mnemonic이 있으면 WelcomeBack page로 이동.
-    useEffect(() => {
-        if (chrome?.storage?.local) {
-            chrome.storage.local.get(['mnemonic'], function(result) {
-                alert('Value mnemonic is ' + result.mnemonic);
-                navigate('/welcome-back');
-            });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (chrome?.storage?.local) {
+    //         chrome.storage.local.get(['mnemonic'], function(result) {
+    //             setGlobalState({mnemonic: result.mnemonic, address: 'unchanged'});
+    //             alert('Value mnemonic is ' + result.mnemonic);
+    //             navigate('/welcome-back');
+    //         });
+    //     }
+    // }, [navigate, setGlobalState]);
 
     return (
         <DefaultLayout>

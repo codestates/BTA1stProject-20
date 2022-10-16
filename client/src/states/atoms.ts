@@ -1,6 +1,9 @@
 import {atom} from "recoil";
 
-export const MnemonicState = atom({
-    key: 'mnemonic',
-    default: '',
-})
+export const GlobalState = atom({
+    key: 'userState',
+    default: {
+        mnemonic: '',
+        address: '',
+    },
+});

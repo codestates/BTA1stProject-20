@@ -1,4 +1,3 @@
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";

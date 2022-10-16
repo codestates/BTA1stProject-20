@@ -5,8 +5,9 @@ import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
+import {useRecoilValue} from "recoil";
+import {GlobalState} from "../states";
 
-const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
     {
         label: 'Immutable X Layer 2 (Goerli-testnet)',
@@ -33,6 +34,8 @@ const SendInput = () => {
     const location = useLocation();
     const {name, ticker, balance} = location.state || {};
     const navigate = useNavigate();
+    const {address: myAddress} = useRecoilValue(GlobalState);
+
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
@@ -56,7 +59,7 @@ const SendInput = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={ADDRESS} />
+                    <CopiableAddress address={myAddress} />
                     <Avatar
                         sx={{
                             width: 25,

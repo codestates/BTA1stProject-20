@@ -3,8 +3,9 @@ import {Avatar, Box, Typography} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useRecoilValue} from "recoil";
+import {GlobalState} from "../states";
 
-const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
     {
         label: 'Immutable X Layer 2 (Goerli-testnet)',
@@ -29,6 +30,7 @@ const BALANCES = [
 const Send = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const navigate = useNavigate();
+    const {address} = useRecoilValue(GlobalState);
 
     return (
         <WalletLayout
@@ -39,7 +41,7 @@ const Send = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={ADDRESS} />
+                    <CopiableAddress address={address} />
                     <Avatar
                         sx={{
                             width: 25,
