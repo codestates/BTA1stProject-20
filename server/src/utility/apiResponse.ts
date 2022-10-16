@@ -36,7 +36,6 @@ export default class ApiResponse {
 
         res.status(error.status || 500).json({
             success: false,
-            code : error.code || 500,
             message : error.message,
         });
     };                

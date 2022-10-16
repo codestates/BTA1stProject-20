@@ -20,7 +20,7 @@ export default class WalletService {
     static async createWallet(password: string, mnemonicPhrase: string, res: any) {  
         try {
 
-            await lightwallet.keystore.createVault(
+            lightwallet.keystore.createVault(
                 {
                     password,
                     seedPhrase: mnemonicPhrase,
@@ -33,13 +33,10 @@ export default class WalletService {
 
                         const walletAddress = ks.getAddresses().toString() as string;
 
-                        const balance : any = await WalletService.balanceOf(walletAddress);
-                        return ApiResponse.result(res, {walletAddress: walletAddress, balance: balance}, 201);
+                        return ApiResponse.result(res, { walletAddress: walletAddress }, 201);
                     });
                 }
             );
-
-            
         }      
         catch (err) {
             throw(err);
@@ -63,32 +60,58 @@ export default class WalletService {
     // 송신자의 privatekey 생성을 어떻게 해야될지 정해야됨!
     // 1. front에서 받을 것인지
     // 2. fromAddress를 전달받았을 때, back에서 privatekey를 찾을 것인지...
-    static async transfer(fromAddress: string, toAddress: string, amount: string) {    
+    static async transfer(fromAddress: string, toAddress: string, amount: string, mnemonicPhrase: string, password: string) {    
         try {
             let web3 = new Web3(new Web3.providers.HttpProvider('https://goerli.infura.io/v3/89a4af9bde694d9aafa9156e1fcbf899'));
 
-            // 주의!!! privatekey 정보를 받아야됨!
-            let fromPrivateKey = "6973eaa6abf34bcd64a4220340581e9bd14e3d7b12117f7d7339337847d51ab3";
+            const balance = await this.balanceOf(fromAddress);
 
-            const fromPrivateKeyBuffer = Buffer.from(fromPrivateKey, "hex");
+            if(amount >= balance)
+                throw new Error('insufficient balance');
 
-            const nonce = await web3.eth.getTransactionCount(fromAddress as string, 'pending');
+            lightwallet.keystore.createVault(
+                {
+                    password,
+                    seedPhrase: mnemonicPhrase,
+                    hdPathString: "m/0'/0'/0'",
+                },
+                function (err: any, ks: any) {
+                    try {
 
-            const gasInfo = await BlcokchainUtil.getCurrentGasPrices();
+                        ks.keyFromPassword(password, async (err: any, pwDerivedKey: any) => {
 
-            const params = {
-                nonce: nonce,
-                value: web3.utils.toHex(web3.utils.toWei(amount, "ether")),
-                gasPrice: web3.utils.toHex(gasInfo.fast * 10E7),
-                gasLimit: web3.utils.toHex(21000),
-                to: toAddress,
-            };
+                            ks.generateNewAddress(pwDerivedKey, 1);
+    
+                            const walletAddress = ks.getAddresses().toString() as string;
+    
+                            const privateKey = Buffer.from(ks.exportPrivateKey(walletAddress, pwDerivedKey), "hex");
+                            
+                            const nonce = await web3.eth.getTransactionCount(fromAddress as string, 'pending');
+    
+                            const gasInfo = await BlcokchainUtil.getCurrentGasPrices();
+    
+                            const params = {
+                                nonce: nonce,
+                                value: web3.utils.toHex(web3.utils.toWei(amount, "ether")),
+                                gasPrice: web3.utils.toHex(gasInfo.fast * 10E7),
+                                gasLimit: web3.utils.toHex(21000),
+                                to: toAddress,
+                            };
+    
+                            await BlcokchainUtil.sendSignedTransaction(params, privateKey, web3);
+                        });
 
-            let result = await BlcokchainUtil.sendSignedTransaction(params, fromPrivateKeyBuffer, web3);
-
-            return result;
+                    }
+                    catch(err) {
+                        throw(err);
+                    }
+                    
+                }
+            );
+            
         }   
         catch (err) {
+            console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             throw(err);
         } 
     }

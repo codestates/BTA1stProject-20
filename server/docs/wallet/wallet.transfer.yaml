@@ -19,7 +19,12 @@ post:
             amount:
               type: string
               required: true
-            
+            mnemonicPhrase:
+              type: string
+              required: true
+            password:
+              type: string
+              required: true
   responses:
     "201":
       $ref: "../swagger.yaml#/components/responses/CreatedResponse"

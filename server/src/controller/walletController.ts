@@ -44,14 +44,22 @@ export default class WalletController extends BaseController {
     }
 
     static transfer : IController = async (req, res) => {
-        const { fromAddress, toAddress, amount } = req.body;
+        const { fromAddress, toAddress, amount, mnemonicPhrase, password } = req.body;
         try {     
-            await WalletService.transfer(fromAddress, toAddress, amount);
+            await WalletService.transfer(fromAddress, toAddress, amount, mnemonicPhrase, password);
             ApiResponse.result(res, true, 201);
         }
         catch (err: any) {            
             err.source = "WalletController:transfer";
-            ApiResponse.error(res, err);
+
+            const errMessage = err.message;
+
+            if(errMessage === "insufficient balance"){
+                err.status = 400;
+                ApiResponse.error(res, err);
+            }
+            else 
+                ApiResponse.error(res, err);
         }
     }
 
