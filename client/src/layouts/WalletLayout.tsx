@@ -1,6 +1,6 @@
-import {Avatar, Box} from "@mui/material";
+import {Box} from "@mui/material";
 
-import type {FC, PropsWithChildren, ReactNode} from "react";
+import type {FC, ReactNode} from "react";
 import type {BoxProps} from "@mui/material";
 
 export interface WalletLayoutProps extends BoxProps {
@@ -28,7 +28,7 @@ const WalletLayout: FC<WalletLayoutProps> = (props) => {
                     height: '15%',
                     px: 5,
                     pt: 2,
-                    bgcolor: 'grey.400'
+                    bgcolor: 'action.disabledBackground'
                 }}
             >
                 {topNode}
@@ -45,7 +45,7 @@ const WalletLayout: FC<WalletLayoutProps> = (props) => {
                 sx={{
                     height: '12%',
                     px: 5,
-                    bgcolor: 'grey.400'
+                    bgcolor: 'action.disabledBackground'
                 }}
             >
                 {bottomNode}

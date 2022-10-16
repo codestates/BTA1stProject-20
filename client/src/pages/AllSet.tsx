@@ -2,11 +2,13 @@ import {DefaultLayout} from "../layouts";
 import {Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton} from "../components";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Verified as VerifiedIcon} from '@mui/icons-material';
 
 const AllSet = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const {action} = location.state || {};
 
     return (
         <DefaultLayout logo>
@@ -23,9 +25,15 @@ const AllSet = () => {
                     <VerifiedIcon sx={{fontSize: '14rem', fill: '#37a638'}} />
                 </Box>
                 <Box>
-                    <Box mt={2}>
-                        <Typography variant="body1">{STRINGS.ALL_SET.DESCRIPTION}</Typography>
-                    </Box>
+                    {action === 'transfer' ? (
+                        <Box mt={2}>
+                            <Typography variant="body1">{STRINGS.ALL_SET.TRANSFER}</Typography>
+                        </Box>
+                    ) : (
+                        <Box mt={2}>
+                            <Typography variant="body1">{STRINGS.ALL_SET.DESCRIPTION}</Typography>
+                        </Box>
+                    )}
                 </Box>
                 <Box width="100%">
                     <FullButton

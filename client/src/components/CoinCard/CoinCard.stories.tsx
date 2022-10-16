@@ -18,8 +18,8 @@ const Template: ComponentStory<typeof CoinCard> = (args) => {
 
 export const CoinCardStory = Template.bind({});
 CoinCardStory.args = {
-    name: 'Immutable X',
-    ticker: 'IMX',
+    name: 'palm',
+    ticker: 'PALM',
     balance: '0.05000',
     onClick: () => {
         console.log('click');

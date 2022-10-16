@@ -9,21 +9,21 @@ import {useBalance} from "../hooks";
 
 const NETWORKS = [
     {
-        label: 'Immutable X Layer 2 (Goerli-testnet)',
-        value: 'Immutable X',
+        label: 'palm (testnet)',
+        value: 'palm',
         disabled: false,
     },
     {
-        label: 'Immutable X Layer 2 (Mainnet)',
-        value: 'Immutable X Main',
+        label: 'palm (Mainnet)',
+        value: 'palm Main',
         disabled: true,
     },
 ];
 
 const BALANCES = [
     {
-        name: 'Immutable X',
-        ticker: 'IMX',
+        name: 'palm',
+        ticker: 'PALM',
         balance: '0.050000',
     }
 ]
@@ -49,8 +49,8 @@ const Send = () => {
                             width: 25,
                             height: 25,
                         }}
-                        alt="$IMX"
-                        src="/imx_icon_334.png"
+                        alt="$PALM"
+                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                     />
                 </Box>
             }

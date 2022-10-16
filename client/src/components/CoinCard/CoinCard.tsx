@@ -1,5 +1,5 @@
 import {Avatar, Box, Typography} from '@mui/material';
-import {noop, getRandomColorFromString} from "../../utils";
+import {noop} from "../../utils";
 
 import type {FC} from "react";
 import type {BoxProps} from '@mui/material';
@@ -32,8 +32,10 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
                 }
             }}
         >
-            {/* TODO: icon 추가*/}
-            <Avatar sx={{ bgcolor: getRandomColorFromString(name) }}>{name?.charAt(0)}</Avatar>
+            <Avatar
+               alt="palm"
+               src="/palm_logo_192.png"
+            />
             <Box
                 sx={{
                     display: 'flex',

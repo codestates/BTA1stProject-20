@@ -36,18 +36,19 @@ const Start = () => {
                 }}
             >
                 <Avatar
+                    variant="square"
                     sx={{
-                        width: 140,
-                        height: 140,
+                        width: 200,
+                        height: 200,
                     }}
-                    alt="$IMX"
-                    src="/imx_icon_334.png"
+                    alt="$PALM"
+                    src="/palm_logo_192.png"
                 />
                 <Box>
-                    <Box mt={2}>
-                        <Typography variant="h5">{`${STRINGS.GLOBAL.PROJECT_NAME} 방문을 환영합니다.`}</Typography>
+                    <Box mt={2} display="flex"  flexDirection="column" alignItems="center">
+                        <Typography variant="h6">{`${STRINGS.GLOBAL.PROJECT_NAME} 방문을 환영합니다.`}</Typography>
                     </Box>
-                    <Box width="100%">
+                    <Box width="100%" display="flex"  flexDirection="column" alignItems="center">
                         <Typography variant="body2">{STRINGS.GLOBAL.PROJECT_DESCRIPTION}</Typography>
                     </Box>
                 </Box>
