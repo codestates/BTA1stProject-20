@@ -18,22 +18,23 @@ export default class BlcokchainUtil {
         }
     }
 
-    static async sendSignedTransaction(params: any, fromPrivateKey: Buffer, web3: any) {
+    static async sendSignedTransaction(params: any, fromPrivateKey: Buffer, web3: any, res: any) {
         try {           
             const tx = new Transaction(params, { chain: chain });
-
             tx.sign(fromPrivateKey);
-
             const serializedTx = tx.serialize();
             const raw = '0x' + serializedTx.toString('hex');
 
-            let result = await web3.eth.sendSignedTransaction(raw, (error: any, data: any) => {
-
-                console.log("data:", data);
-
+            await web3.eth.sendSignedTransaction(raw, (error: any, data: any) => {
+                if(error) {
+                    error.status = 400;
+                    ApiResponse.error(res, error);
+                }
+                else {
+                    ApiResponse.result(res, { txHash: data }, 201);
+                }
             });
 
-            return { status: true, txHash: result.transactionHash };
         }
         catch(err: any) {
             throw(err);
