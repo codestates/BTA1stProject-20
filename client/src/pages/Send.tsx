@@ -1,7 +1,8 @@
 import {WalletLayout} from "../layouts";
-import {Avatar, Box} from "@mui/material";
+import {Avatar, Box, Typography} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
@@ -25,8 +26,9 @@ const BALANCES = [
     }
 ]
 
-const Wallet = () => {
+const Send = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
+    const navigate = useNavigate();
 
     return (
         <WalletLayout
@@ -63,9 +65,20 @@ const Wallet = () => {
                             setNetwork(e.target.value as string);
                         }}
                     />
+                    <Box mt={3}>
+                        <Typography fontWeight={700} variant="h6">송금할 코인을 선택하세요</Typography>
+                    </Box>
                     <Box width="100%" pt={3}>
                         {BALANCES.map((balance) => {
-                            return <CoinCard key={balance.ticker} {...balance} />
+                            return (
+                                <CoinCard
+                                    key={balance.ticker}
+                                    onClick={() => {
+                                        navigate(balance.ticker, {state: balance});
+                                    }}
+                                    {...balance}
+                                />
+                            );
                         })}
                     </Box>
                 </Box>
@@ -78,11 +91,11 @@ const Wallet = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <FakeTab activeIndex={0} />
+                    <FakeTab activeIndex={1} />
                 </Box>
             }
         />
     )
 }
 
-export default Wallet;
+export default Send;

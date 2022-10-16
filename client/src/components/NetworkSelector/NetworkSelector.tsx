@@ -34,7 +34,7 @@ export const NetworkSelector: FC<NetworkSelectorProps> = (props) => {
                 >
                     {options.map(({label, value, disabled}) => {
                         return (
-                            <MenuItem disabled={disabled} value={value}>{label}</MenuItem>
+                            <MenuItem key={value} disabled={disabled} value={value}>{label}</MenuItem>
                         )
                     })}
                 </Select>

@@ -1,7 +1,8 @@
 import {WalletLayout} from "../layouts";
-import {Avatar, Box} from "@mui/material";
+import {Avatar, Box, Typography} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useState} from "react";
+import {useLocation} from "react-router-dom";
 
 const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
@@ -25,8 +26,10 @@ const BALANCES = [
     }
 ]
 
-const Wallet = () => {
+const SendInput = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
+    const location = useLocation();
+    const {name, ticker, balance} = location.state;
 
     return (
         <WalletLayout
@@ -63,11 +66,17 @@ const Wallet = () => {
                             setNetwork(e.target.value as string);
                         }}
                     />
-                    <Box width="100%" pt={3}>
-                        {BALANCES.map((balance) => {
-                            return <CoinCard key={balance.ticker} {...balance} />
-                        })}
+                    <Box mt={3}>
+                        <Typography fontWeight={700} variant="h6">{`\$${ticker}송금하기`}</Typography>
                     </Box>
+                    <Avatar
+                        sx={{
+                            width: 40,
+                            height: 40,
+                        }}
+                        alt="$IMX"
+                        src="/imx_icon_334.png"
+                    />
                 </Box>
             }
             bottomNode={
@@ -78,11 +87,11 @@ const Wallet = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <FakeTab activeIndex={0} />
+                    <FakeTab activeIndex={1} />
                 </Box>
             }
         />
     )
 }
 
-export default Wallet;
+export default SendInput;

@@ -45,7 +45,7 @@ export const FakeTab: FC<FakeTabProps> = (props) => {
             }}
         >
             {TABS.map((tabInfo, index) => {
-                return <FakeTabItem active={index === activeIndex} {...tabInfo} />
+                return <FakeTabItem key={tabInfo.label} active={index === activeIndex} {...tabInfo} />
             })}
         </Box>
     );

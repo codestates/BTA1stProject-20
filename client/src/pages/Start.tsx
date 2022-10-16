@@ -24,7 +24,7 @@ const Start = () => {
                         height: 140,
                     }}
                     alt="$IMX"
-                    src="imx_icon_334.png"
+                    src="/imx_icon_334.png"
                 />
                 <Box>
                     <Box mt={2}>
