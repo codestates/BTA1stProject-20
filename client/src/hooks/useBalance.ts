@@ -16,6 +16,7 @@ export const useBalance  = (address:string) => {
     const {data, isLoading, error, refetch} = useQuery('BALANCE', getBalance, {
         refetchOnWindowFocus: false,
         retry: false,
+        staleTime: 3000,
         enabled: Boolean(address),
     });
 

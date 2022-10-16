@@ -5,6 +5,8 @@ const ENDPOINTS = {
     NEW_MNEMONIC: `${HOST}/mnemonic`,
     NEW_WALLET: `${HOST}/create`,
     BALANCE: `${HOST}/balance`,
+    TRANSFER: `${HOST}/transfer`,
+    LOGIN: `${HOST}/login`,
 }
 
 export default ENDPOINTS;

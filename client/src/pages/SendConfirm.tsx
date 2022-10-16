@@ -5,6 +5,8 @@ import {useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {GlobalState} from "../states";
 import {useRecoilValue} from "recoil";
+import {ENDPOINTS} from "../constants";
+import {useMutation} from "react-query";
 
 const NETWORKS = [
     {
@@ -40,10 +42,35 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {address: myAddress} = useRecoilValue(GlobalState);
+    const {address: myAddress, password, mnemonic} = useRecoilValue(GlobalState);
     const navigate = useNavigate();
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
+
+    const transfer = async () => {
+        try {
+            const res = await fetch(ENDPOINTS.TRANSFER, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fromAddress: myAddress,
+                    toAddress: address,
+                    amount,
+                    password,
+                    mnemonicPhrase: mnemonic
+                })
+            });
+            const data = await res.json();
+            console.log(data);
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const {data, mutate, isLoading, error} = useMutation(transfer, {});
 
     return (
         <WalletLayout
@@ -108,7 +135,7 @@ const SendConfirm = () => {
                                 navigate(-1);
                             }}
                             onNextButtonClick={() => {
-                                alert('송금 api 호출');
+                                mutate();
                             }}
                             disabled={false}
                         />

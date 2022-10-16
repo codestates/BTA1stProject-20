@@ -30,7 +30,7 @@ const CreateWallet = () => {
             const {data: {walletAddress}} = await res2.json();
 
             console.log({mnemonicPhrase, walletAddress});
-            return {mnemonicPhrase, walletAddress};
+            return {mnemonicPhrase, walletAddress, password};
         } catch (e) {
             console.error(e);
         }
@@ -42,12 +42,13 @@ const CreateWallet = () => {
     const passwordConfirmError = useMemo(() => passwordConfirm.length >0 &&  password !== passwordConfirm, [password, passwordConfirm]);
 
     useEffect(() => {
-        const {mnemonicPhrase: mnemonic, walletAddress: address} = data || {};
+        const {mnemonicPhrase: mnemonic, walletAddress: address, password} = data || {};
         if (data) {
             console.log(data);
-            setGlobalState({address, mnemonic})
+            setGlobalState({address, mnemonic, password: password ?? ''})
+
             if (chrome?.storage?.local) {
-                chrome.storage.local.set({mnemonic, address}, function() {
+                chrome.storage.local.set({data: {mnemonic, address, password}}, function() {
                     console.log('value set to '+JSON.stringify({mnemonic, address}));
                 });
             }

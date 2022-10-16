@@ -40,7 +40,7 @@ const SendInput = () => {
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
-    const {data: balance, isLoading} = useBalance(address);
+    const {data: balance, isLoading} = useBalance(myAddress);
 
     const addressError = useMemo(() => {
         const addr = /0x/.test(address) ? address : `0x${address}`;

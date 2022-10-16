@@ -3,8 +3,9 @@ const STRINGS = {
      *   Global String 정보  *
      ***********************/
     GLOBAL: {
-      PROJECT_NAME: '$IMX Wallet',
-      PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
+        PROJECT_NAME: '$IMX Wallet',
+        PROJECT_DESCRIPTION: '프로젝트 설명입니다. 프로젝트 설명입니다.',
+        COIN_NAME: 'IMX',
     },
     /************************
      * Component String 정보 *
