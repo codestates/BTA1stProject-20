@@ -1,16 +1,16 @@
 get: 
   tags:
     - WALLET
-  summary: GET Balance
+  summary: Get Mnemonic Phrase
   description: ""
   parameters: 
-  - name: walletAddress
+  - name: password
     in: query
     description: ""
     required: true
     schema: 
       type: string
-      
+  
   responses:
     "200":
       $ref: "../swagger.yaml#/components/responses/SuccessResponse"

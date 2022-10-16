@@ -8,6 +8,8 @@ import WalletController from "../controller/walletController";
      router.post         ("/wallet/transfer"              ,WalletController.transfer     );
      router.get         ("/wallet/mnemonic"              ,WalletController.generateMnemonicCode     );
      router.get         ("/wallet/balance"              ,WalletController.balanceOf     );
+     router.get         ("/wallet/privatekey"              ,WalletController.getPrivatekey     );
+     router.get         ("/wallet/mymnemonic"              ,WalletController.getMyMnemonic     );
      
 
 

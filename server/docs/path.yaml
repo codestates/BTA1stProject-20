@@ -7,3 +7,7 @@
   $ref: './wallet/wallet.mnemonic.yaml'
 /api/wallet/balance:
   $ref: './wallet/wallet.balance.yaml'
+/api/wallet/privatekey:
+  $ref: './wallet/wallet.privatekey.yaml'
+/api/wallet/mymnemonic:
+  $ref: './wallet/wallet.mymnemonic.yaml'

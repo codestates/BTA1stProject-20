@@ -19,9 +19,6 @@ post:
             amount:
               type: string
               required: true
-            mnemonicPhrase:
-              type: string
-              required: true
             password:
               type: string
               required: true
