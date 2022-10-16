@@ -1,7 +1,7 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 
@@ -27,15 +27,22 @@ const BALANCES = [
     }
 ]
 
-const SendInput = () => {
-    const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const location = useLocation();
-    const {name, ticker, balance} = location.state || {};
-    const navigate = useNavigate();
-    const [address, setAddress] = useState('');
-    const [amount, setAmount] = useState('')
+const useQueryParams = () => {
+    const {search} = useLocation();
+    const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 
-    // TODO: input check
+    return {
+        address: searchParams.get('address'),
+        amount: searchParams.get('amount'),
+    }
+}
+
+const SendConfirm = () => {
+    const [network, setNetwork] = useState<string>(NETWORKS[0].value);
+    const navigate =  useNavigate();
+    const {address, amount} = useQueryParams();
+    console.log(address, amount);
+
     return (
         <WalletLayout
             topNode={
@@ -78,7 +85,7 @@ const SendInput = () => {
                     <Box display="flex" flexDirection="column" alignItems="center" gap={3} mt={-10} width="100%">
                         <Box display="flex" flexDirection="column" alignItems="center" gap={0.5}>
                             <Box mt={3}>
-                                <Typography fontWeight={700} variant="h6">{`\$${ticker}송금하기`}</Typography>
+                                <Typography fontWeight={700} variant="h6">{`송금하기`}</Typography>
                             </Box>
                             <Avatar
                                 sx={{
@@ -94,31 +101,23 @@ const SendInput = () => {
                                 inputType="address"
                                 label="보내는 주소"
                                 variant="outlined"
-                                value={address}
-                                onChange={(e) => {
-                                    setAddress(e.target.value)
-                                }}
                             />
                             <SendCoinInput
                                 inputType="amount"
                                 label="금액"
                                 placeholder="0"
                                 variant="outlined"
-                                value={amount}
-                                onChange={(e) => {
-                                    setAmount(e.target.value)
-                                }}
-                                unit={ticker}
+                                unit={''}
                             />
                         </Box>
                     </Box>
                     <Box width="100%">
                         <ButtonPair
                             onPrevButtonClick={() => {
-                                navigate('/send');
+                                navigate(-1);
                             }}
                             onNextButtonClick={() => {
-                                navigate(`confirm?address=${address}&amount=${amount}`);
+
                             }}
                             disabled={false}
                         />
@@ -140,4 +139,4 @@ const SendInput = () => {
     )
 }
 
-export default SendInput;
+export default SendConfirm;
