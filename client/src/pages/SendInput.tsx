@@ -5,8 +5,10 @@ import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
+import {useRecoilValue} from "recoil";
+import {GlobalState} from "../states";
+import {useBalance} from "../hooks";
 
-const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
     {
         label: 'Immutable X Layer 2 (Goerli-testnet)',
@@ -31,21 +33,29 @@ const BALANCES = [
 const SendInput = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const location = useLocation();
-    const {name, ticker, balance} = location.state || {};
+    const {name, ticker} = location.state || {};
     const navigate = useNavigate();
+    const {address: myAddress} = useRecoilValue(GlobalState);
+
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
-    // TODO: balance도 가져와서 input check
+    const {data: balance, isLoading} = useBalance(myAddress);
+
     const addressError = useMemo(() => {
         const addr = /0x/.test(address) ? address : `0x${address}`;
         return address.length > 0 && addr.length !== 42;
     }, [address]);
 
     const amountError = useMemo(() => {
-        const parsedAmount = parseFloat(amount)
-        return amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0);
-    }, [amount]);
+        const parsedAmount = parseFloat(amount);
+        const parsedBalance = parseFloat(balance);
+
+        return (
+            (amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0))
+            || (parsedBalance < parsedAmount)
+        );
+    }, [amount, balance]);
 
     return (
         <WalletLayout
@@ -56,7 +66,7 @@ const SendInput = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={ADDRESS} />
+                    <CopiableAddress address={myAddress} />
                     <Avatar
                         sx={{
                             width: 25,
@@ -113,7 +123,7 @@ const SendInput = () => {
                             />
                             <SendCoinInput
                                 inputType="amount"
-                                label="금액"
+                                label={`금액${amountError ? ' (잔액: ' + balance + ')' : ''}`}
                                 placeholder="0"
                                 variant="outlined"
                                 value={amount}

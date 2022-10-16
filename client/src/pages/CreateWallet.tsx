@@ -6,28 +6,31 @@ import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
 import {ENDPOINTS} from "../constants";
 import {useSetRecoilState} from "recoil";
-import {MnemonicState} from "../states";
+import {GlobalState} from "../states";
 
 const CreateWallet = () => {
     const navigate =  useNavigate();
 
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
-    const setMnemonic = useSetRecoilState(MnemonicState);
+    const setGlobalState = useSetRecoilState(GlobalState);
 
     const getMnemonic = async () => {
         try {
-            const res = await fetch(ENDPOINTS.NEW_NEMONIC, {method: 'POST'});
-            const mnemonic = await res.json();
+            const res = await fetch(ENDPOINTS.NEW_MNEMONIC);
+            const {data: mnemonicPhrase} = await res.json();
+
             const res2 = await fetch(ENDPOINTS.NEW_WALLET, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({password, ...mnemonic})
+                body: JSON.stringify({password, mnemonicPhrase})
             });
-            const result = await res2.json();
-            return {...mnemonic, result};
+            const {data: {walletAddress}} = await res2.json();
+
+            console.log({mnemonicPhrase, walletAddress});
+            return {mnemonicPhrase, walletAddress, password};
         } catch (e) {
             console.error(e);
         }
@@ -39,16 +42,19 @@ const CreateWallet = () => {
     const passwordConfirmError = useMemo(() => passwordConfirm.length >0 &&  password !== passwordConfirm, [password, passwordConfirm]);
 
     useEffect(() => {
+        const {mnemonicPhrase: mnemonic, walletAddress: address, password} = data || {};
         if (data) {
-            setMnemonic(data.mnemonic);
+            console.log(data);
+            setGlobalState({address, mnemonic, password: password ?? ''})
+
             if (chrome?.storage?.local) {
-                chrome.storage.local.set({mnemonic: data.mnemonic}, function() {
-                    console.log('Value is set to ' + data.mnemonic);
+                chrome.storage.local.set({data: {mnemonic, address, password}}, function() {
+                    console.log('value set to '+JSON.stringify({mnemonic, address}));
                 });
             }
             navigate('/seed-reveal');
         }
-    }, [setMnemonic, navigate, data, isLoading, error]);
+    }, [setGlobalState, navigate, data, isLoading, error]);
 
     return (
         <DefaultLayout logo>

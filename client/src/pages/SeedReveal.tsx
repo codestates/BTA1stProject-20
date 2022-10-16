@@ -5,11 +5,11 @@ import {ButtonPair, MnemonicInput} from "../components";
 import {STRINGS} from "../constants";
 import {copyToClipboard} from "../utils";
 import {useRecoilValue} from "recoil";
-import {MnemonicState} from "../states";
+import {GlobalState} from "../states";
 
 const SeedReveal = () => {
     const navigate = useNavigate();
-    const mnemonic = useRecoilValue(MnemonicState);
+    const {mnemonic} = useRecoilValue(GlobalState);
 
     return (
         <DefaultLayout logo>

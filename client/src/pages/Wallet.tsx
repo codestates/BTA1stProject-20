@@ -1,9 +1,11 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useRecoilValue} from "recoil";
+import {GlobalState} from "../states";
+import {useBalance} from "../hooks";
 
-const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
     {
         label: 'Immutable X Layer 2 (Goerli-testnet)',
@@ -27,6 +29,12 @@ const BALANCES = [
 
 const Wallet = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
+    const {address} = useRecoilValue(GlobalState);
+    const {data, isLoading} = useBalance(address);
+
+    useEffect(() => {
+        console.log(data, isLoading);
+    }, [data, isLoading]);
 
     return (
         <WalletLayout
@@ -37,7 +45,7 @@ const Wallet = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={ADDRESS} />
+                    <CopiableAddress address={address} />
                     <Avatar
                         sx={{
                             width: 25,
@@ -65,7 +73,7 @@ const Wallet = () => {
                     />
                     <Box width="100%" pt={3}>
                         {BALANCES.map((balance) => {
-                            return <CoinCard key={balance.ticker} {...balance} />
+                            return <CoinCard key={balance.ticker} {...balance} balance={data} />
                         })}
                     </Box>
                 </Box>

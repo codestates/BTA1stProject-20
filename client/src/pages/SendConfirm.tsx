@@ -3,9 +3,11 @@ import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {SendCoinInput} from "../components";
+import {GlobalState} from "../states";
+import {useRecoilValue} from "recoil";
+import {ENDPOINTS} from "../constants";
+import {useMutation} from "react-query";
 
-const ADDRESS = '0x81b6C7EF567954A221bfb7adBe63fD1b44A68Bb4';
 const NETWORKS = [
     {
         label: 'Immutable X Layer 2 (Goerli-testnet)',
@@ -29,6 +31,7 @@ const BALANCES = [
 
 const useQueryParams = () => {
     const {search} = useLocation();
+
     const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 
     return {
@@ -39,9 +42,35 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
+    const {address: myAddress, password, mnemonic} = useRecoilValue(GlobalState);
     const navigate = useNavigate();
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
+
+    const transfer = async () => {
+        try {
+            const res = await fetch(ENDPOINTS.TRANSFER, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fromAddress: myAddress,
+                    toAddress: address,
+                    amount,
+                    password,
+                    mnemonicPhrase: mnemonic
+                })
+            });
+            const data = await res.json();
+            console.log(data);
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const {data, mutate, isLoading, error} = useMutation(transfer, {});
 
     return (
         <WalletLayout
@@ -52,7 +81,7 @@ const SendConfirm = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={ADDRESS} />
+                    <CopiableAddress address={myAddress} />
                     <Avatar
                         sx={{
                             width: 25,
@@ -106,7 +135,7 @@ const SendConfirm = () => {
                                 navigate(-1);
                             }}
                             onNextButtonClick={() => {
-                                alert('송금 api 호출');
+                                mutate();
                             }}
                             disabled={false}
                         />
