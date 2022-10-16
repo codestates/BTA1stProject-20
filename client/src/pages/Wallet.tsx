@@ -1,9 +1,10 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useRecoilValue} from "recoil";
 import {GlobalState} from "../states";
+import {useBalance} from "../hooks";
 
 const NETWORKS = [
     {
@@ -29,6 +30,11 @@ const BALANCES = [
 const Wallet = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const {address} = useRecoilValue(GlobalState);
+    const {data, isLoading} = useBalance(address);
+
+    useEffect(() => {
+        console.log(data, isLoading);
+    }, [data, isLoading]);
 
     return (
         <WalletLayout
@@ -67,7 +73,7 @@ const Wallet = () => {
                     />
                     <Box width="100%" pt={3}>
                         {BALANCES.map((balance) => {
-                            return <CoinCard key={balance.ticker} {...balance} />
+                            return <CoinCard key={balance.ticker} {...balance} balance={data} />
                         })}
                     </Box>
                 </Box>

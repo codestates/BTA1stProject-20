@@ -41,7 +41,7 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
                 }}
             >
                 <Typography variant="body2">{name}</Typography>
-                <Typography variant="body2">{`${balance} ${ticker}`}</Typography>
+                <Typography variant="body2">{`${balance ?? ''} ${ticker}`}</Typography>
             </Box>
         </Box>
     );

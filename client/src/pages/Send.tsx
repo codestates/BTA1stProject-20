@@ -5,6 +5,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useRecoilValue} from "recoil";
 import {GlobalState} from "../states";
+import {useBalance} from "../hooks";
 
 const NETWORKS = [
     {
@@ -31,6 +32,7 @@ const Send = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const navigate = useNavigate();
     const {address} = useRecoilValue(GlobalState);
+    const {data, isLoading} = useBalance(address);
 
     return (
         <WalletLayout
@@ -79,6 +81,7 @@ const Send = () => {
                                         navigate(balance.ticker, {state: balance});
                                     }}
                                     {...balance}
+                                    balance={data}
                                 />
                             );
                         })}
