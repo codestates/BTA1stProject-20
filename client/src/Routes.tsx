@@ -12,6 +12,7 @@ import {
     SendInput,
     Start,
     Wallet,
+    WelcomeBack,
 } from "./pages";
 
 export default function _Routes() {
@@ -35,6 +36,7 @@ export default function _Routes() {
                 </Route>
                 <Route path="start" element={<Start />} />
                 <Route path="wallet" element={<Wallet />} />
+                <Route path="welcome-back" element={<WelcomeBack />} />
                 <Route path="error" element={<Error />} />
             </Route>
         </Routes>

@@ -3,20 +3,10 @@ import {useNavigate} from "react-router-dom";
 import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
-import {FullButton} from "../components";
+import {FullButton, PasswordInput} from "../components";
 
-const Start = () => {
+const WelcomeBack = () => {
     const navigate = useNavigate();
-
-    // mnemonic이 있으면 WelcomeBack page로 이동.
-    useEffect(() => {
-        if (chrome?.storage?.local) {
-            chrome.storage.local.get(['mnemonic'], function(result) {
-                alert('Value mnemonic is ' + result.mnemonic);
-                navigate('/welcome-back');
-            });
-        }
-    }, []);
 
     return (
         <DefaultLayout>
@@ -35,15 +25,20 @@ const Start = () => {
                         height: 140,
                     }}
                     alt="$IMX"
-                    src="/imx_icon_334.png"
                 />
                 <Box>
                     <Box mt={2}>
-                        <Typography variant="h5">{`${STRINGS.GLOBAL.PROJECT_NAME} 방문을 환영합니다.`}</Typography>
+                        <Typography variant="h5">{STRINGS.WELCOME_BACK.DESCRIPTION}</Typography>
                     </Box>
                     <Box width="100%">
-                        <Typography variant="body2">{STRINGS.GLOBAL.PROJECT_DESCRIPTION}</Typography>
+                        <Typography variant="body2">{STRINGS.WELCOME_BACK.WARNING}</Typography>
                     </Box>
+                </Box>
+                <Box width="100%">
+                    <PasswordInput
+                        label="비밀번호 입력"
+                        variant="outlined"
+                    />
                 </Box>
                 <Box width="100%">
                     <FullButton
@@ -51,7 +46,7 @@ const Start = () => {
                             navigate('/first-time')
                         }}
                     >
-                        시작하기
+                        잠금 해제
                     </FullButton>
                 </Box>
             </Box>
@@ -59,4 +54,4 @@ const Start = () => {
     )
 }
 
-export default Start;
+export default WelcomeBack;

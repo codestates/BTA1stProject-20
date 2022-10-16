@@ -41,6 +41,11 @@ const CreateWallet = () => {
     useEffect(() => {
         if (data) {
             setMnemonic(data.mnemonic);
+            if (chrome?.storage?.local) {
+                chrome.storage.local.set({mnemonic: data.mnemonic}, function() {
+                    console.log('Value is set to ' + data.mnemonic);
+                });
+            }
             navigate('/seed-reveal');
         }
     }, [setMnemonic, navigate, data, isLoading, error]);

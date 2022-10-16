@@ -43,6 +43,10 @@ const STRINGS = {
         DESCRIPTION: '비밀 복구 구문을 이용하면\n계정을 쉽게 백업하고 복구할 수 있습니다',
         WARNING: '경고:  비밀 복구 구문은 절대로 공개하지 마세요. \n이 구문이 있는 사람은 귀하의 자산을 탈취할 수 있습니다.'
     },
+    WELCOME_BACK: {
+        DESCRIPTION: '재방문을 환영합니다!',
+        WARNING: '분산된 웹이 다음을 대기 중'
+    }
 }
 
 export default STRINGS;
