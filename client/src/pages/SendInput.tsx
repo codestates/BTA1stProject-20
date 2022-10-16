@@ -73,7 +73,7 @@ const SendInput = () => {
                             height: 25,
                         }}
                         alt="$PALM"
-                        src="/palm_logo_192.png"
+                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                     />
                 </Box>
             }
@@ -107,7 +107,7 @@ const SendInput = () => {
                                     height: 40,
                                 }}
                                 alt="$PALM"
-                                src="/palm_logo_192.png"
+                                src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                             />
                         </Box>
                         <Box width="100%" display="flex" flexDirection="column" gap={2}>

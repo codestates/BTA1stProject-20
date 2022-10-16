@@ -11,7 +11,7 @@ import {useMutation} from "react-query";
 const WelcomeBack = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState<string>('');
-    const {password: storedPassword, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
+    const {address, password: storedPassword, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
     const setGlobalState = useSetRecoilState(GlobalState);
 
     const login = async () => {
@@ -23,7 +23,7 @@ const WelcomeBack = () => {
                 },
                 body: JSON.stringify({password, mnemonicPhrase})
             });
-           return await res.json();
+            return await res.json();
 
         } catch (e) {
             console.error(e);
@@ -37,7 +37,13 @@ const WelcomeBack = () => {
         if (data?.success) {
             setGlobalState({address: data.data.walletAddress, mnemonic: mnemonicPhrase, password: password ?? ''})
             if (chrome?.storage?.local) {
-                chrome.storage.local.set({data: {mnemonic: mnemonicPhrase, address: data.walletAddress, password}}, function() {
+                chrome.storage.local.set({
+                    data: {
+                        mnemonic: mnemonicPhrase,
+                        address: data.walletAddress,
+                        password
+                    }
+                }, function () {
 
                 });
             }
@@ -62,12 +68,13 @@ const WelcomeBack = () => {
                         height: 140,
                     }}
                     alt="$PALM"
+                    src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                 />
                 <Box>
-                    <Box mt={2}>
+                    <Box mt={2} display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="h5">{STRINGS.WELCOME_BACK.DESCRIPTION}</Typography>
                     </Box>
-                    <Box width="100%">
+                    <Box width="100%" display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="body2">{STRINGS.WELCOME_BACK.WARNING}</Typography>
                     </Box>
                 </Box>
@@ -83,8 +90,13 @@ const WelcomeBack = () => {
                         // helperText={password !== storedPassword ? 'password를 확인해 주세요.' : ''}
                     />
                 </Box>
-                <Link to="/first-time">처음부터 세팅하고 싶으신가요</Link>
-
+                <Box sx={{transform: 'translateY(35px)'}}>
+                    <Link to="/first-time">
+                        <Typography color="warning.light" variant="subtitle2">
+                            처음부터 시작하고 싶다면 이 메세지 클릭
+                        </Typography>
+                    </Link>
+                </Box>
                 <Box width="100%">
                     <FullButton
                         onClick={() => {

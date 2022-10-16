@@ -50,7 +50,7 @@ const Send = () => {
                             height: 25,
                         }}
                         alt="$PALM"
-                        src="/palm_logo_192.png"
+                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                     />
                 </Box>
             }

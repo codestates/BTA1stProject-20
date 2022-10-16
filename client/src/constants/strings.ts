@@ -47,7 +47,7 @@ const STRINGS = {
     },
     WELCOME_BACK: {
         DESCRIPTION: '재방문을 환영합니다!',
-        WARNING: '분산된 웹이 다음을 대기 중'
+        WARNING: '비밀번호를 입력해 주세요'
     }
 }
 
